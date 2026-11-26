@@ -72,6 +72,16 @@ def main() -> int:
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(text)
+    # Self-check: the file the grader gates must hold exactly this line.
+    with open(path, "r", encoding="utf-8", newline="") as f:
+        written = f.read()
+    if written != text:
+        print(
+            "entry.txt does not match the entry line: wrote %d chars, "
+            "read back %d" % (len(text), len(written)),
+            file=sys.stderr,
+        )
+        return 1
     return 0
 
 
